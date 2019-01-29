@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -21,11 +24,13 @@ public class PolymorphWindow extends JPanel implements ActionListener {
 	// Polymorph bluePoly;
 	// Polymorph redPoly;
 	// Polymorph movingPoly;
-	Polymorph circlePoly;
+	Polymorph circlePoly = new CircleMorph(100, 100, 50, 50);;
+	Polymorph mousePoly = new MouseMorph(200, 200, 40, 40);
+	Polymorph imagePoly = new ImageMorph(400, 400, 60, 60);
+	Polymorph messagePoly = new MessageMorph(300, 300, 60, 60);
 
 	ArrayList<Polymorph> polymorphs = new ArrayList<Polymorph>();
-	Polymorph firstmorph;
-	Polymorph secondmorph;
+
 
 	public static void main(String[] args) {
 		new PolymorphWindow().buildWindow();
@@ -36,17 +41,23 @@ public class PolymorphWindow extends JPanel implements ActionListener {
 		window.add(this);
 		window.getContentPane().setPreferredSize(new Dimension(500, 500));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
 		window.pack();
 		window.setVisible(true);
-
-		// polymorphs.add(firstmorph);
-		// polymorphs.add(secondmorph);
-
+		addMouseMotionListener((MouseMorph) mousePoly);
+		addMouseListener((MessageMorph) messagePoly);
+	
 		// bluePoly = new BluePolymorph(50, 50, 50, 50);
 		// redPoly = new RedMorph(100, 100, 100, 100);
 		// movingPoly = new MovingMorph(100, 100, 50, 50);
-		circlePoly = new CircleMorph(100, 100, 50, 50);
-
+		
+		
+		
+		polymorphs.add(circlePoly);
+		polymorphs.add(mousePoly);
+		polymorphs.add(imagePoly);
+		polymorphs.add(messagePoly);
+		
 		timer = new Timer(1000 / 30, this);
 		timer.start();
 	}
@@ -58,26 +69,19 @@ public class PolymorphWindow extends JPanel implements ActionListener {
 
 		// draw polymorph
 
-		// bluePoly.draw(g);
-		// redPoly.draw(g);
-		// movingPoly.draw(g);
-		circlePoly.draw(g);
-
-		// for (int i = 0; i < polymorphs.size(); i++) {
-		// polymorphs.get(i).draw(g);
-		// }
+		for (Polymorph p : polymorphs) {
+			p.draw(g);
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
-		// bluePoly.update();
-		// redPoly.update();
-		// movingPoly.update();
-		circlePoly.update();
 
-		// for (int i = 0; i < polymorphs.size(); i++) {
-		// polymorphs.get(i).update();
-		// }
+		for (Polymorph p : polymorphs) {
+			p.update();
+		}
 	}
+
+	
 }

@@ -14,15 +14,15 @@ public class CircleMorph extends Polymorph {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.GREEN);
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 	}
 
 	public void update() {
 		super.update();
 
-		setX((int) (radius * Math.cos(time)));
-		setY((int) (radius * Math.sin(time)));
+		setX((int) (radius * Math.cos(time)) +50);
+		setY((int) (radius * Math.sin(time))+50);
 		time += 1;
 	}
 
